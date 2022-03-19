@@ -1,0 +1,66 @@
+body{
+    background-color: #f4f7fa;
+    min-height: 100vh;
+}
+::selection{
+    background: none !important;
+    color: green;
+}
+/* font-style */
+.f_Leagesparton{
+    font-family: 'League Spartan', sans-serif;
+}
+.f_poppins{
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600;
+    letter-spacing: .5px;
+    /* font-size: 15px; */
+}
+.form-control{
+    outline: none !important;
+}
+::placeholder {
+    color: #272727;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  
+form ::-webkit-input-placeholder {
+    color: #222222;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+form :-moz-placeholder {
+    color: #4d4c4c;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+}
+input[type=text] {
+    color: #4d4c4c;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+}
+.plus_icon,.plus_icon_ProductCost,.plus_icon_diffProduct{
+    /* border: 0.2px solid #d9d9d9; */
+    padding: 5px 10px;
+    color: green;
+    cursor: pointer;
+}
+.del_icon{
+    /* border: 0.2px solid #d9d9d9; */
+    padding: 5px 10px;
+    color: red;
+    cursor: pointer;
+}
+
+.plus_icon_ProductCost:active,.plus_icon:active,.plus_icon_diffProduct:active{
+    box-shadow: none !important;
+}
+.del_icon:active{
+    box-shadow: none !important;
+}

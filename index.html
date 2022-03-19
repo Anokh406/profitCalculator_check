@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Profit Calculator</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan&family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container px-4 py-2 my-3">
+        <h2 class="text-center my-sm-5 f_Leagesparton">Dream Profit Calculator</h2>
+        <div class="row g-3 align-items-center">
+            <div class="col-sm-6">
+                <label for="DesiredProfit" class="f_poppins col-form-label fw-bold">Enter Your Desired Profit <span
+                        class="text-danger">*</span></label><i class="fa fa-info-circle ms-2 text-success"></i>
+            </div>
+            <div class="col-sm-3">
+                <input type="text" id="DesiredProfit" class="form-control" placeholder="amount">
+            </div>
+        </div>
+        <div class="row g-3 align-items-center" style="margin-top: -10px;">
+            <div class="col-sm-6">
+                <label for="corporateTax" class="f_poppins col-form-label fw-bold">Corporate Tax<span
+                        class="text-danger">*</span></label><i class="fa fa-info-circle ms-2 text-success"></i>
+            </div>
+            <div class="col-sm-3">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">%</span>
+                    </div>
+                    <input type="text" id="corporateTax" class="form-control" placeholder="amount">
+                </div>
+            </div>
+        </div>
+        <div class="row g-3 align-items-center ProfitbeforeCorporateTax" style="margin-top: -10px;">
+            <div class="col-sm-6">
+                <label class="f_poppins col-form-label fw-bolder ">Profit you need to make before corporation
+                    tax</label>
+            </div>
+            <div class="col-sm-3">
+                <label id="profit_beforCorptax" class="f_poppins col-form-label fw-bold"></label>
+            </div>
+        </div>
+        <hr>
+        <p class="text-align f_poppins" style="font-size: 13px;">Run your profit and loss report for last year , Input Expenses for the Year from last year figures <i class="fa fa-info-circle ms-2 text-success"></i></p>
+        <div class="row g-3 align-items-center Expense" style="margin-top: -10px;">
+            <div class="col-sm-6"><input type="text" class="w-50 form-control expense_name" placeholder="Expense Name">
+            </div>
+            <div class="col-sm-3"><input type="text" class="form-control expense_amount" placeholder="Expense amount">
+            </div>
+            <div class="col-sm-3"><span class="text-align plus_icon shadow"><i class="fa fa-plus"></i></span>
+            </div>
+        </div>
+        <div class="row g-3 align-items-center ProfitbeforeCorporateTax" style="margin-top: -10px;">
+            <div class="col-sm-6">
+                <label class="f_poppins col-form-label fw-bolder ">Gross profit you need to make as a result</label>
+            </div>
+            <div class="col-sm-3">
+                <label id="grossProfit" class="f_poppins col-form-label fw-bold"></label>
+            </div>
+        </div>
+        <hr>
+        <p class="text-align f_poppins" style="font-size: 13px;">Run your profit and loss report for last year
+            <i class="fa fa-info-circle ms-2 text-success"></i>
+        </p>
+        <div class="row g-3 align-items-center CostOfProduct" style="margin-top: -10px;">
+            <div class="col-sm-6"><input type="text" class="w-50 form-control ProductName" placeholder="Product Name">
+            </div>
+            <div class="col-sm-3"><input type="text" class="form-control productCost" placeholder="Cost amount"></div>
+            <div class="col-sm-3"><span class="text-align plus_icon_ProductCost shadow"><i
+                        class="fa fa-plus"></i></span></div>
+        </div>
+        <div class="row g-3 align-items-center revenueGoal" style="margin-top: -10px;">
+            <div class="col-sm-6">
+                <label class="f_poppins col-form-label revenueGoal_label fw-bolder ">Revenue Goal</label>
+            </div>
+            <div class="col-sm-3">
+                <label id="revenueGoal_val" class="f_poppins col-form-label fw-bold"></label>
+            </div>
+        </div>
+        <hr>
+        <p class="text-align f_poppins" style="font-size: 13px;">Breakdown your Revenue goal into different products or services (YOUR ACTION PLAN)<i class="fa fa-info-circle ms-2 text-success"></i></p>
+        <div class="row g-3 align-items-center diffProduct" style="margin-top: -10px;">
+            <div class="col-sm-6"><input type="text" class="w-50 form-control diffProduct_name" placeholder="Product Name">
+            </div>
+            <div class="col-sm-3"><input type="text" class="form-control diffProduct_amount" placeholder="amount">
+            </div>
+            <div class="col-sm-3"><span class="text-align plus_icon_diffProduct shadow"><i
+                        class="fa fa-plus"></i></span>
+            </div>
+        </div>
+        <div class="row g-3 align-items-center revenueGoal" style="margin-top: -10px;">
+            <div class="col-sm-6">
+                <label class="f_poppins col-form-label totalAmount fw-bolder ">Total Estimated Amount</label>
+            </div>
+            <div class="col-sm-3">
+                <label id="totalAmount_val" class="f_poppins col-form-label fw-bold"></label>
+            </div>
+        </div>
+        <div class="row g-3 align-items-center revenueGoal" style="margin-top: -10px;">
+            <div class="col-sm-6">
+                <label class="f_poppins col-form-label fw-bolder ">ShortFall/Surplus</label>
+            </div>
+            <div class="col-sm-3">
+                <label id="surplus" class="f_poppins col-form-label fw-bold"></label>
+            </div>
+        </div>
+</body>
+<script>
+    $('.plus_icon').on('click', function() {
+        var rowHtmlExpense = '<div class="row g-3 align-items-center Expense" style="margin-top: -10px;"><div class="col-sm-6"><input type="text" class="w-50 form-control expense_name" placeholder="Expense Name"></div><div class="col-sm-3"><input type="text" class="form-control expense_amount" placeholder="Expense amount"></div><div class="col-sm-3"><span class="text-align del_icon shadow"><i class="fa fa-trash"></i></span></div></div>';
+        $('.Expense').last('div.Expense').after(rowHtmlExpense);
+    });
+    $('.plus_icon_ProductCost').on('click', function() {
+        var rowHtmlCostOfProduct = '<div class="row g-3 align-items-center CostOfProduct" style="margin-top: -10px;"><div class="col-sm-6"><input type="text" class="w-50 form-control ProductName" placeholder="Product Name"></div><div class="col-sm-3"><input type="text" class="form-control productCost" placeholder="Cost amount"></div><div class="col-sm-3"><span class="text-align del_icon shadow"><i class="fa fa-trash"></i></span></div></div>';
+        $('.CostOfProduct').last('div.CostOfProduct').after(rowHtmlCostOfProduct);
+    });
+    $('.plus_icon_diffProduct').on('click', function() {
+        var rowHtmldiffProduct = '<div class="row g-3 align-items-center diffProduct" style="margin-top: -10px;"><div class="col-sm-6"><input type="text" class="w-50 form-control diffProductname" placeholder="Product Name"></div><div class="col-sm-3"><input type="text" class="form-control diffProduct_amount" placeholder="amount"></div><div class="col-sm-3"><span class="text-align del_icon shadow"><i class="fa fa-trash"></i></span></div></div>';
+        $('.diffProduct').last('div.diffProduct').after(rowHtmldiffProduct);
+    });
+    $(document).on('click', '.del_icon', function() {
+        $(this).parent('div').parent('div').remove();
+        // desiredproft for getting profit with corporate tax
+
+    });
+    // $('#corporateTax').val('%');
+    $(document).on('keyup', 'input', function() {
+        var desiredProfit = $('#DesiredProfit').val();
+        var corporateTaxPercentage = $('#corporateTax').val();
+        var calculateCorporateTax = desiredProfit / (1 - corporateTaxPercentage / 100); // -------> 19%
+        // console.log(calculateCorporateTax);
+        // return false;
+        //Proft befor corporate tax % % % % % % % % % % % % % % % % % % % % % % %
+        // var ProfitbeforeCorporateTax = +desiredProfit + +calculateCorporateTax;
+
+        $('#profit_beforCorptax').text(calculateCorporateTax);
+        if (($('#profit_beforCorptax').text() == "Infinity") || ($('#profit_beforCorptax').text() === "NaN")) {
+            $('#profit_beforCorptax').text('Enter tax percentage');
+        }
+        var expenses = perSectionTotal('.expense_amount', '#grossProfit');
+        var productCost = perSectionTotal('.productCost', '#revenueGoal_val');
+        var revenueGoal = expenses + productCost;
+        $('#revenueGoal_val').text(revenueGoal);
+        var diffproduct = perSectionTotal('.diffProduct_amount', '#totalAmount_val');
+        $('#surplus').text(diffproduct - revenueGoal) > 0 ? $('#surplus').text(diffproduct - revenueGoal) : $('#surplus').text(diffproduct - revenueGoal);
+
+
+    });
+
+    function perSectionTotal(selector, ValueOutputSelector) {
+        var sum = 0;
+        $(selector).each(function() {
+            sum += parseFloat($(this).val()); // Or this.innerHTML, this.innerText
+            $(ValueOutputSelector).text(sum);
+        });
+        return sum;
+    }
+</script>
+
+</html>
