@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan&family=Poppins:wght@200&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+    <script src="js/custome.js"></script>
 </head>
 
 <body>
@@ -23,7 +25,7 @@
                         class="text-danger">*</span></label><i class="fa fa-info-circle ms-2 text-success"></i>
             </div>
             <div class="col-sm-3">
-                <input type="text" id="DesiredProfit" class="form-control" placeholder="amount">
+                <input type="text" id="DesiredProfit" class="form-control number" placeholder="amount">
             </div>
         </div>
         <div class="row g-3 align-items-center" style="margin-top: -10px;">
@@ -36,7 +38,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">%</span>
                     </div>
-                    <input type="text" id="corporateTax" class="form-control" placeholder="amount">
+                    <input type="text" id="corporateTax" class="form-control number" placeholder="amount">
                 </div>
             </div>
         </div>
@@ -65,6 +67,7 @@
             </div>
             <div class="col-sm-3">
                 <label id="grossProfit" class="f_poppins col-form-label fw-bold"></label>
+                <input type="hidden" id="grossProfit_1" value="">
             </div>
         </div>
         <hr>
@@ -72,9 +75,10 @@
             <i class="fa fa-info-circle ms-2 text-success"></i>
         </p>
         <div class="row g-3 align-items-center CostOfProduct" style="margin-top: -10px;">
-            <div class="col-sm-6"><input type="text" class="w-50 form-control ProductName" placeholder="Product Name">
+            <div class="col-sm-6"><input type="text" class="w-50 form-control ProductName number" placeholder="Product Name">
             </div>
-            <div class="col-sm-3"><input type="text" class="form-control productCost" placeholder="Cost amount"></div>
+            <div class="col-sm-3"><input type="text" class="form-control productCost" placeholder="Cost amount">
+            </div>
             <div class="col-sm-3"><span class="text-align plus_icon_ProductCost shadow"><i
                         class="fa fa-plus"></i></span></div>
         </div>
@@ -84,6 +88,7 @@
             </div>
             <div class="col-sm-3">
                 <label id="revenueGoal_val" class="f_poppins col-form-label fw-bold"></label>
+                <input type="hidden" id="revenueGoal_val_1" value="">
             </div>
         </div>
         <hr>
@@ -93,8 +98,7 @@
             </div>
             <div class="col-sm-3"><input type="text" class="form-control diffProduct_amount" placeholder="amount">
             </div>
-            <div class="col-sm-3"><span class="text-align plus_icon_diffProduct shadow"><i
-                        class="fa fa-plus"></i></span>
+            <div class="col-sm-3"><span class="text-align plus_icon_diffProduct shadow"><i class="fa fa-plus"></i></span>
             </div>
         </div>
         <div class="row g-3 align-items-center revenueGoal" style="margin-top: -10px;">
@@ -115,47 +119,70 @@
         </div>
 </body>
 <script>
-    $('.plus_icon').on('click', function() {
-        var rowHtmlExpense = '<div class="row g-3 align-items-center Expense" style="margin-top: -10px;"><div class="col-sm-6"><input type="text" class="w-50 form-control expense_name" placeholder="Expense Name"></div><div class="col-sm-3"><input type="text" class="form-control expense_amount" placeholder="Expense amount"></div><div class="col-sm-3"><span class="text-align del_icon shadow"><i class="fa fa-trash"></i></span></div></div>';
-        $('.Expense').last('div.Expense').after(rowHtmlExpense);
-    });
-    $('.plus_icon_ProductCost').on('click', function() {
-        var rowHtmlCostOfProduct = '<div class="row g-3 align-items-center CostOfProduct" style="margin-top: -10px;"><div class="col-sm-6"><input type="text" class="w-50 form-control ProductName" placeholder="Product Name"></div><div class="col-sm-3"><input type="text" class="form-control productCost" placeholder="Cost amount"></div><div class="col-sm-3"><span class="text-align del_icon shadow"><i class="fa fa-trash"></i></span></div></div>';
-        $('.CostOfProduct').last('div.CostOfProduct').after(rowHtmlCostOfProduct);
-    });
-    $('.plus_icon_diffProduct').on('click', function() {
-        var rowHtmldiffProduct = '<div class="row g-3 align-items-center diffProduct" style="margin-top: -10px;"><div class="col-sm-6"><input type="text" class="w-50 form-control diffProductname" placeholder="Product Name"></div><div class="col-sm-3"><input type="text" class="form-control diffProduct_amount" placeholder="amount"></div><div class="col-sm-3"><span class="text-align del_icon shadow"><i class="fa fa-trash"></i></span></div></div>';
-        $('.diffProduct').last('div.diffProduct').after(rowHtmldiffProduct);
-    });
-    $(document).on('click', '.del_icon', function() {
-        $(this).parent('div').parent('div').remove();
-        // desiredproft for getting profit with corporate tax
+    function total_sum() {
+        var desiredProfit = $('#DesiredProfit').val();
+        var corporateTaxPercentage = $('#corporateTax').val();
+        var calculateCorporateTax = desiredProfit * (corporateTaxPercentage / 100);
+        // =====================================================gross profit val=========================================
+        var expenses = perSectionTotal('.expense_amount', '#grossProfit');
+        // =====================================================revenue goal val=========================================
+        var productCost = perSectionTotal('.productCost', '#revenueGoal_val');
+        // =========================================================estimated values=====================================================
+        var diffproduct = perSectionTotal('.diffProduct_amount', '#totalAmount_val');
+        $('#totalAmount_val').text(diffproduct);
 
+        // =========================================================hidden field values=====================================================
+        var toatal_grossProfit = $('#grossProfit_1').val(expenses);
+        var total_revenue = $('#revenueGoal_val_1').val(productCost);
+        var cal_exp = expenses + calculateCorporateTax;
+        var revenue_exp = productCost + expenses + calculateCorporateTax;
+        $('#grossProfit').text(cal_exp);
+        $('#revenueGoal_val').text(revenue_exp);
+        $('#surplus').text(diffproduct - revenue_exp) > 0 ? $('#surplus').text(diffproduct - revenue_exp) : $('#surplus').text(diffproduct - revenue_exp);
+    }
+    // ============================================================= Delete a input tag and its value ===========================================================================
+    $(document).on('click', '.del_icon_1', function() {
+        var desiredProfit = $('#DesiredProfit').val();
+        var corporateTaxPercentage = $('#corporateTax').val();
+        var calculateCorporateTax = desiredProfit * (corporateTaxPercentage / 100);
+        var expenses = perSectionTotal('.expense_amount', '#grossProfit');
+        var parentInputVal1 = $(this).parent('div').parent().find('.expense_amount').val();
+        var exp = expenses - parentInputVal1;
+        exp = exp + calculateCorporateTax;
+        $('#grossProfit').text(exp);
+        $(this).parent('div').parent('div').remove();
     });
-    // $('#corporateTax').val('%');
+    $(document).on('click', '.del_icon_2', function(selector, ValueOutputSelector) {
+        var desiredProfit = $('#DesiredProfit').val();
+        var corporateTaxPercentage = $('#corporateTax').val();
+        var calculateCorporateTax = desiredProfit * (corporateTaxPercentage / 100);
+        var expenses = $('.expense_amount').val();
+        var parentInputVal1 = $('.del_icon_1').parent('div').parent().find('.expense_amount').val();
+        var exp = +expenses + +calculateCorporateTax;
+        var productCost = perSectionTotal('.productCost', '#revenueGoal_val');
+        var parentInputVal2 = $(this).parent('div').parent().find('.productCost').val();
+        var cost = productCost - parentInputVal2;
+        cost = +cost + +exp;
+        $('#revenueGoal_val').text(cost);
+        $(this).parent('div').parent('div').remove();
+    });
+    $(document).on('click', '.del_icon_3', function(selector, ValueOutputSelector) {
+        var diffproduct = perSectionTotal('.diffProduct_amount', '#totalAmount_val');
+        var parentInputVal3 = $(this).parent('div').parent().find('.diffProduct_amount').val();
+        var diff_Pro = diffproduct - parentInputVal3;
+        $('#totalAmount_val').text(diff_Pro);
+        $(this).parent('div').parent('div').remove();
+    });
+
+    // ===================================================Keyup to get input value =========================================================================
     $(document).on('keyup', 'input', function() {
         var desiredProfit = $('#DesiredProfit').val();
         var corporateTaxPercentage = $('#corporateTax').val();
-        var calculateCorporateTax = desiredProfit / (1 - corporateTaxPercentage / 100); // -------> 19%
-        // console.log(calculateCorporateTax);
-        // return false;
-        //Proft befor corporate tax % % % % % % % % % % % % % % % % % % % % % % %
-        // var ProfitbeforeCorporateTax = +desiredProfit + +calculateCorporateTax;
-
+        var calculateCorporateTax = desiredProfit * (corporateTaxPercentage / 100); // -------> 19%
         $('#profit_beforCorptax').text(calculateCorporateTax);
-        if (($('#profit_beforCorptax').text() == "Infinity") || ($('#profit_beforCorptax').text() === "NaN")) {
-            $('#profit_beforCorptax').text('Enter tax percentage');
-        }
-        var expenses = perSectionTotal('.expense_amount', '#grossProfit');
-        var productCost = perSectionTotal('.productCost', '#revenueGoal_val');
-        var revenueGoal = expenses + productCost;
-        $('#revenueGoal_val').text(revenueGoal);
-        var diffproduct = perSectionTotal('.diffProduct_amount', '#totalAmount_val');
-        $('#surplus').text(diffproduct - revenueGoal) > 0 ? $('#surplus').text(diffproduct - revenueGoal) : $('#surplus').text(diffproduct - revenueGoal);
-
-
+        total_sum();
     });
-
+    //  ===============================================================Assign a value for all selections======================================================================================
     function perSectionTotal(selector, ValueOutputSelector) {
         var sum = 0;
         $(selector).each(function() {
@@ -164,6 +191,20 @@
         });
         return sum;
     }
+    // ==============================================Add a new input tags to click plush button=================================================================
+    $('.plus_icon').on('click', function() {
+        var rowHtmlExpense = '<div class="row g-3 align-items-center Expense" style="margin-top: -10px;"><div class="col-sm-6"><input type="text" class="w-50 form-control expense_name" placeholder="Expense Name"></div><div class="col-sm-3"><input type="text" class="form-control expense_amount" placeholder="Expense amount"></div><div class="col-sm-3"><span class="text-align del_icon del_icon_1 shadow"><i class="fa fa-trash" ></i></span></div></div>';
+        $('.Expense').last('div.Expense').after(rowHtmlExpense);
+    });
+    $('.plus_icon_ProductCost').on('click', function() {
+        var rowHtmlCostOfProduct = '<div class="row g-3 align-items-center CostOfProduct" style="margin-top: -10px;"><div class="col-sm-6"><input type="text" class="w-50 form-control ProductName" placeholder="Product Name"></div><div class="col-sm-3"><input type="text" class="form-control productCost" placeholder="Cost amount"></div><div class="col-sm-3"><span class="text-align del_icon del_icon_2 shadow"><i class="fa fa-trash"></i></span></div></div>';
+        $('.CostOfProduct').last('div.CostOfProduct').after(rowHtmlCostOfProduct);
+    });
+    $('.plus_icon_diffProduct').on('click', function() {
+        var rowHtmldiffProduct = '<div class="row g-3 align-items-center diffProduct" style="margin-top: -10px;"><div class="col-sm-6"><input type="text" class="w-50 form-control diffProductname" placeholder="Product Name"></div><div class="col-sm-3"><input type="text" class="form-control diffProduct_amount" placeholder="amount"></div><div class="col-sm-3"><span class="text-align del_icon del_icon_3 shadow"><i class="fa fa-trash"></i></span></div></div>';
+        $('.diffProduct').last('div.diffProduct').after(rowHtmldiffProduct);
+    });
+    // =======================================End of code========================================================================
 </script>
 
 </html>
